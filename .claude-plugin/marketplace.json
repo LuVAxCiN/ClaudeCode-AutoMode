@@ -1,0 +1,32 @@
+{
+  "name": "claudecode-automode",
+  "id": "claudecode-automode",
+  "owner": {
+    "name": "LuVAxCiN"
+  },
+  "metadata": {
+    "description": "Internal permission classifier for Claude Code — eliminates permission prompts while blocking dangerous operations",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "auto-mode",
+      "source": "./skills/auto-mode",
+      "description": "Internal permission classifier. Activated BEFORE every tool call — evaluates safety, performance impact, and security risk. Hard-deny destructive operations. Auto-allow safe operations within project scope. Minimize permission prompts to near-zero by classifying commands in context. Use for permission management, safety, security, auto-approval.",
+      "version": "1.0.0",
+      "author": {
+        "name": "LuVAxCiN"
+      },
+      "keywords": [
+        "permission",
+        "safety",
+        "security",
+        "auto-mode",
+        "approval",
+        "classifier",
+        "guard"
+      ],
+      "category": "security"
+    }
+  ]
+}
