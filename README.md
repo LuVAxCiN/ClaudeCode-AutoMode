@@ -190,6 +190,7 @@ Built from analysis of:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| **1.0.3** | May 2026 | git destructive → ASK, rm -rf ~/ consistency, block device redirect, shell rc persistence, sudo -i |
 | **1.0.2** | May 2026 | Tier 1 skip, circuit breaker, deny-and-continue, subagent monitoring, compound command splitting, heredoc handling, user allowlist |
 | **1.0.0** | May 2026 | Initial release: SKILL.md + guard.py + README |
 
