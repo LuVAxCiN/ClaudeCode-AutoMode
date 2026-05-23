@@ -4,11 +4,11 @@ A two-layer safety system that eliminates permission prompts while blocking dang
 
 ## Why?
 
-Claude Code's built-in auto mode uses a Sonnet 4.6 classifier outside the agent to evaluate every tool call. Independent research (AmPermBench, arXiv:2604.04978) found its false-negative rate is **81%** on deliberately ambiguous tasks — and 36.8% of dangerous actions bypass the classifier entirely through Tier 2 (Write/Edit tools).
+Claude Code's built-in auto mode uses a Sonnet 4.6 classifier outside the agent. Anthropic's own published benchmark shows a **17% false-negative rate** on real production traffic. Independent adversarial testing (AmPermBench, arXiv:2604.04978) found **81% FNR** on deliberately ambiguous stress-test prompts — not representative of normal use, but exposing architectural blind spots: 36.8% of dangerous actions bypass the classifier entirely through Tier 2 (Write/Edit tools).
 
 This skill takes a different approach: **you, the agent, classify every tool call before executing it.** No second model. No architecture-level blind spots. Just a discipline that formalizes what you should already be doing — thinking before acting.
 
-Combined with a lightweight PreToolUse hook as defense-in-depth, this system targets **zero permission prompts per session** while maintaining stronger safety guarantees.
+Combined with a lightweight PreToolUse hook as defense-in-depth, this system targets **zero permission prompts per session**. For **catastrophic operations** (rm -rf /, fork bombs, reverse shells, credential theft), the hook provides stronger hardware-level guarantees than the official auto mode's Tier 2 blind spot. For **gray-zone overeager actions**, it relies on the same agent-level judgment as the built-in classifier — no stronger, no weaker.
 
 ## Architecture
 
