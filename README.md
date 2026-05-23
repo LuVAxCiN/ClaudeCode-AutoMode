@@ -178,13 +178,13 @@ Built from analysis of:
 | Classifier | Sonnet 4.6 two-stage (single-token → CoT) | Agent internal + Python hook |
 | Tier 2 (file edits) | **36.8% bypass** (not classified) | **All tools covered** |
 | Denial response | Deny-and-continue (suggest alternative) | DENY + safer alternative proposal |
-| Circuit breaker | 3 consecutive / 20 cumulative → human | Same |
+| Circuit breaker | GrowthBook remote kill switch | Local file-based, resets on restart |
 | Tier 1 (read tools) | Static allowlist, instant | Hook skip for safe tools |
-| Subagent monitoring | Outbound + return checks | Pre-delegation classification |
+| Subagent monitoring | Outbound + return double check | Pre-delegation classification only |
 | Context awareness | Reasoning-blind (prevents persuasion) | Blast radius + intent + consent |
 | Credential protection | Block rules only | Confused deputy prevention + credential scope |
 | Self-measurement | None | discipline.json + Mistake Log |
-| Prompt injection | Server-side probe + reasoning-blind | Structural injection defense (classifier can't be coerced) |
+| Prompt injection | Server-side probe + reasoning-blind classifier | Hook pattern matching only, no injection probe |
 
 ## Version History
 
