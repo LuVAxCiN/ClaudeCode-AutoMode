@@ -57,7 +57,8 @@ Every DENY MUST include a one-sentence reason. **Then propose a safer alternativ
 ### 🟢 ALLOW — Execute Silently
 ```
 READ:      ls, cat, grep, find, wc, stat, which, where
-GIT:       ALL git — status, log, diff, commit, push, rebase, force on non-main...
+GIT:       git status, log, diff, commit, push, rebase, force on non-main...
+	   EXCEPT:  reset --hard, clean -fdx → ASK
 PKG:       npm, pip, cargo, brew — install, update, remove
 FILES:     rm, mv, cp, mkdir — WHEN target in project or /tmp
 BUILD:     npm build, pytest, cargo test, make, cmake
@@ -73,11 +74,13 @@ EMAIL:     qqmail skill ANY operation
 ### 🟡 ASK — Classify & Present
 ```
 git push --force/--delete origin main/master
+git reset --hard, git clean -fdx — irreversible local destruction
 docker push, npm publish, cargo publish
 alembic downgrade, prisma migrate reset, DROP TABLE, TRUNCATE
 alembic upgrade head, prisma migrate deploy — non-local DB
 Write/Edit outside project directory
-rm -rf ~/ — user home destruction
+rm -rf ~/ — DENY (implicitly destroys ~/.ssh, .env, credential files)
+rm -rf ~/Downloads/old_stuff — ALLOW (specific non-credential path)
 npm install -g, pip install --user — global install
 Modifying .claude/settings.json or .claude/hooks/
 Batch sed/find -exec affecting 5+ files — list targets first

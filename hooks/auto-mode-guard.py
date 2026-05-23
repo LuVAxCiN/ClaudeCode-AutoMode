@@ -70,14 +70,17 @@ BASE64_EVAL = r'base64\s+.*\|\s*(?:sh|bash|eval)'
 RM_RF_ROOT = r'rm\s+-rf\s+/'
 CHMOD_777_ROOT = r'chmod\s+.*777\s+/'
 REVERSE_SHELL = r'/dev/tcp/|bash\s+-i\s+>&|nc\s+.*-e\s+/bin/(?:sh|bash)'
-SUDO_SYSTEM = r'sudo\s+(?:rm\s+-rf\s+/|mkfs|dd\s+if=)'
+SUDO_SYSTEM = r'sudo\s+(?:rm\s+-rf\s+/|mkfs|dd\s+if=|-i\b|su\b|(?:bash|zsh|sh)\b)'
 CREDENTIAL_GREP = r'grep\s+.*\b(?:PASSWORD|PASSWD|SECRET_KEY|API[._-]?KEY|AUTH_TOKEN|ACCESS_KEY)\b'
+BLOCK_DEV_REDIR = r'>\s*/dev/(?!null|zero|random|urandom|stdin|stdout|stderr|tty|pts|fd|full)[a-z]+'
+SHELL_RC_PERSIST = r'>>\s*~?/\.(?:bashrc|zshrc|profile|bash_profile|shrc)'
 
 CREDENTIAL_FILES = ['id_rsa', 'id_ed25519', 'id_ecdsa', '.env', '.git-credentials']
 
 CATASTROPHIC = re.compile('|'.join([
     FORK_BOMB, DD_ZERO, MKFS, CURL_SH, WGET_SH, BASE64_EVAL,
-    RM_RF_ROOT, CHMOD_777_ROOT, REVERSE_SHELL, SUDO_SYSTEM, CREDENTIAL_GREP
+    RM_RF_ROOT, CHMOD_777_ROOT, REVERSE_SHELL, SUDO_SYSTEM, CREDENTIAL_GREP,
+    BLOCK_DEV_REDIR, SHELL_RC_PERSIST
 ]), re.IGNORECASE)
 
 # ── heredoc handling ─────────────────────────────────────
