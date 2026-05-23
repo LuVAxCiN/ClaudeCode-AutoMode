@@ -171,6 +171,29 @@ Built from analysis of:
 - CSA Confused Deputy research (March 2026) — prompt injection leading to package compromise
 - Real incident: settings.json credentials mistakenly masked by batch sed (May 2026)
 
+## Comparison with Official Auto Mode
+
+| Dimension | Official Auto Mode | This System |
+|-----------|-------------------|-------------|
+| Classifier | Sonnet 4.6 two-stage (single-token → CoT) | Agent internal + Python hook |
+| Tier 2 (file edits) | **36.8% bypass** (not classified) | **All tools covered** |
+| Denial response | Deny-and-continue (suggest alternative) | DENY + safer alternative proposal |
+| Circuit breaker | 3 consecutive / 20 cumulative → human | Same |
+| Tier 1 (read tools) | Static allowlist, instant | Hook skip for safe tools |
+| Subagent monitoring | Outbound + return checks | Pre-delegation classification |
+| Context awareness | Reasoning-blind (prevents persuasion) | Blast radius + intent + consent |
+| Credential protection | Block rules only | Confused deputy prevention + credential scope |
+| Self-measurement | None | discipline.json + Mistake Log |
+| Prompt injection | Server-side probe + reasoning-blind | Structural injection defense (classifier can't be coerced) |
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| **1.1.0** | May 2026 | Tier 1 safe-tool skip, circuit breaker, deny-and-continue, subagent monitoring |
+| **1.0.1** | May 2026 | Compound command splitting, heredoc handling, user allowlist, slimmed SKILL.md |
+| **1.0.0** | May 2026 | Initial release: SKILL.md + guard.py + README |
+
 ## Requirements
 
 - Claude Code (any version with PreToolUse hook support)
