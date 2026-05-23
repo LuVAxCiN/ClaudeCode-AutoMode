@@ -50,7 +50,9 @@ KILL:      kill -9 on system PIDs, taskkill /F /IM svchost...
 EXFIL:     curl secret → pastebin, base64+network out
 ```
 
-Every DENY MUST include a one-sentence reason to the user.
+Every DENY MUST include a one-sentence reason. **Then propose a safer alternative.** "不能做 X，因为 Y。可以试试 Z。"
+
+> pattern: "I can't [do X] because [dimension]. Alternative: [safer path that achieves the same goal]."
 
 ### 🟢 ALLOW — Execute Silently
 ```
@@ -128,6 +130,25 @@ CREDENTIALS HAVE SCOPE. NEVER BORROW THEM.
 | "≥3 fixes failed, one more try" | Architecture problem. Stop and discuss. |
 
 **Red Flags:** Executing without pause · "Let me just run this and see" · Can't articulate WHY it's ALLOW · Just read a credential file, about to use it · Modifying files outside project without checking · Grepping for alternative passwords
+
+## Subagent Delegation
+
+Before spawning a subagent (Agent tool), classify the delegated task for safety:
+
+```
+Agent delegation → pause → classify:
+  ├── DENY: the subagent's task is inherently unsafe → refuse, tell user why
+  ├── ALLOW: safe, well-scoped → spawn with clear instructions + return expectations
+  └── ASK: task is safe but boundary-crossing → present reasoning, then proceed
+```
+
+**Key rule:** The subagent inherits YOUR permissions. If you wouldn't do it, don't delegate it. A subagent hitting auth errors might credential-borrow just like you would — arm it with the auto-mode skill.
+
+## Circuit Breaker
+
+The PreToolUse hook tracks denial counts. After **3 consecutive** or **20 cumulative** denials, it trips — all subsequent calls require manual approval. This prevents denial loops from wasting tokens and forces architectural reconsideration.
+
+If the hook returns `ask` with a circuit-breaker reason, stop and discuss with the user. Something is structurally wrong.
 
 ## The Bottom Line
 
