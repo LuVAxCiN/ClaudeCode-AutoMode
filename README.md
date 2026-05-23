@@ -190,8 +190,7 @@ Built from analysis of:
 
 | Version | Date | Changes |
 |---------|------|---------|
-| **1.1.0** | May 2026 | Tier 1 safe-tool skip, circuit breaker, deny-and-continue, subagent monitoring |
-| **1.0.1** | May 2026 | Compound command splitting, heredoc handling, user allowlist, slimmed SKILL.md |
+| **1.0.2** | May 2026 | Tier 1 skip, circuit breaker, deny-and-continue, subagent monitoring, compound command splitting, heredoc handling, user allowlist |
 | **1.0.0** | May 2026 | Initial release: SKILL.md + guard.py + README |
 
 ## Requirements
